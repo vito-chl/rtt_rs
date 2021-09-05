@@ -73,7 +73,7 @@ pub use prelude::v1::*;
 macro_rules! entry {
     ($func: ident) => {
         #[no_mangle]
-        pub extern "C" fn rust_main() -> i8 {
+        pub extern "C" fn rust_main() -> usize {
             $func();
             0
         }
