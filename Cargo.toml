@@ -1,0 +1,20 @@
+[package]
+name = "rtt_rs"
+version = "0.2.3"
+authors = ["chenhonglinchl <chenhonglinchl@aliyun.com>"]
+edition = "2018"
+description = "rtthread supprot library"
+license = "MIT"
+
+[dependencies]
+bitfield = "0.13.2"
+
+[features]
+
+default = ["device", "fs", "net"]
+
+rt-smart = []
+
+device = []
+fs = []
+net = []

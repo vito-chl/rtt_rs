@@ -1,0 +1,29 @@
+{
+  "arch": "arm",
+  "data-layout": "e-m:e-p:32:32-Fi8-i64:64-v128:64:128-a:0:32-n32-S64",
+  "disable-redzone": true,
+  "emit-debug-gdb-scripts": false,
+  "executables": true,
+  "features": "+v7,+thumb2,+soft-float,-neon,+strict-align",
+  "is-builtin": true,
+  "linker": "arm-linux-musleabi-gcc",
+  "llvm-target": "armv7a-none-eabi",
+  "max-atomic-width": 64,
+  "panic-strategy": "abort",
+  "relocation-model": "static",
+  "target-pointer-width": "32",
+  "pre-link-args": {
+    "gcc": [
+      "-lc",
+      "-T/home/vito/code/hello_rtsmart/link.lds"
+    ]
+  },
+  "unsupported-abis": [
+    "stdcall",
+    "fastcall",
+    "vectorcall",
+    "thiscall",
+    "win64",
+    "sysv64"
+  ]
+}
