@@ -8,6 +8,7 @@ license = "MIT"
 
 [dependencies]
 bitfield = "0.13.2"
+lazy_static = { version = "1.4", features = ["spin_no_std"] }
 
 [features]
 

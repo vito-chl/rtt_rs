@@ -74,7 +74,6 @@ macro_rules! entry {
     ($func: ident) => {
         #[no_mangle]
         pub extern "C" fn rust_main() -> i8 {
-            // crate::base::rttbase_init();
             $func();
             0
         }

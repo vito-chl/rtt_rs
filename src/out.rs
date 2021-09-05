@@ -10,22 +10,23 @@ use crate::base::*;
 #[cfg(feature = "rt-smart")]
 use crate::base::*;
 
+use lazy_static::lazy_static;
 #[cfg(not(feature = "rt-smart"))]
-static mut PRINT_LOCK: *const CVoid = 0 as *const CVoid;
-
-#[cfg(not(feature = "rt-smart"))]
-pub fn rttbase_init() {
-    let name = CString::new("prt");
-    unsafe {
-        PRINT_LOCK = rt_mutex_create(name.str.as_ptr(), 1);
-    }
+lazy_static! {
+    pub static ref PRINT_LOCK: usize = {
+        unsafe {
+            let name = CString::new("plock");
+            let r = rt_mutex_create(name.str.as_ptr(), 1);
+            r as usize
+        }
+    };
 }
 
 #[inline]
 pub(crate) fn rttbase_print_lock() {
     #[cfg(not(feature = "rt-smart"))]
     unsafe {
-        rt_mutex_take(PRINT_LOCK, -1);
+        rt_mutex_take(PRINT_LOCK.clone() as *const CVoid, -1);
     }
 }
 
@@ -33,7 +34,7 @@ pub(crate) fn rttbase_print_lock() {
 pub(crate) fn rttbase_print_unlock() {
     #[cfg(not(feature = "rt-smart"))]
     unsafe {
-        rt_mutex_release(PRINT_LOCK);
+        rt_mutex_release(PRINT_LOCK.clone() as *const CVoid);
     }
 }
 
@@ -157,5 +158,5 @@ macro_rules! dbg {
 #[cfg(not(debug_assertions))]
 #[macro_export]
 macro_rules! dlog {
-    ($($arg:tt)*) => {}
+    ($($arg:tt)*) => {};
 }
