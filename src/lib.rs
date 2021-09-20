@@ -19,6 +19,8 @@
 #![no_std]
 #![feature(alloc_error_handler)]
 #![feature(allow_internal_unstable)]
+#![feature(const_fn_fn_ptr_basics)]
+#![feature(const_fn_trait_bound)]
 #![cfg(not(test))]
 #![allow(dead_code)]
 
@@ -35,6 +37,8 @@ pub mod out;
 pub mod queue;
 pub mod raw_api;
 pub mod semaphore;
+pub mod timer;
+pub mod embassy_async;
 
 pub mod thread;
 
