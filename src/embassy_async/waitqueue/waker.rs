@@ -79,7 +79,7 @@ impl AtomicWaker {
     pub fn wake(&self) {
         let w2 = self.waker.load(Ordering::Relaxed);
         if let Some(w2) = NonNull::new(w2) {
-            unsafe { wake_task(w2) };
+            //unsafe { wake_task(w2) };
         }
     }
 }
