@@ -66,6 +66,7 @@ impl Executor {
         loop {
             unsafe {
                 self.inner.poll();
+                crate::println!("poll");
                 let ok = rt_thread_suspend(self.thread as _);
                 if ok != 0 {
                     panic!()
