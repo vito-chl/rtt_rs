@@ -66,6 +66,7 @@ impl Executor {
         loop {
             unsafe {
                 self.inner.poll();
+                crate::println!("xxx");
                 rt_thread_suspend(self.thread as _);
             };
         }
