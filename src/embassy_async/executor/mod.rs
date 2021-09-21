@@ -66,7 +66,6 @@ impl Executor {
         loop {
             unsafe {
                 self.inner.poll();
-                println!("suspend");
                 rt_thread_suspend(self.thread as _);
             };
         }
