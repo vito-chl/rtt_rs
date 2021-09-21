@@ -24,6 +24,7 @@ fn wake_thread(th: *mut CVoid) {
 }
 
 pub fn device_wake(c: Waker) {
+    crate::println!("r");
     unsafe {
         let task = task_from_waker(&c);
         wake_task(task);
