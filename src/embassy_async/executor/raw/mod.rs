@@ -183,7 +183,7 @@ impl<F: Future + 'static> TaskStorage<F> {
     }
 }
 
-// unsafe impl<F: Future + 'static> Sync for TaskStorage<F> {}
+unsafe impl<F: Future + 'static> Sync for TaskStorage<F> {}
 
 /// Raw executor.
 ///
