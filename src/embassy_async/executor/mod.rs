@@ -9,6 +9,7 @@ use crate::embassy_async::executor::raw::{task_from_waker, wake_task};
 use crate::raw_api::{rt_thread_resume, rt_thread_self, rt_thread_suspend};
 use core::task::Waker;
 pub use spawner::*;
+pub use raw::*;
 
 pub struct Executor {
     inner: raw::Executor,
