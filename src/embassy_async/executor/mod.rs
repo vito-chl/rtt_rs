@@ -66,10 +66,10 @@ impl Executor {
         loop {
             unsafe {
                 self.inner.poll();
-                crate::println!("xxx");
+                crate::println!("poll finish");
                 let ok = rt_thread_suspend(self.thread as _);
                 if ok != 0 {
-                    crate::println!("unsp");
+                    crate::println!("u{}", ok);
                 } else {
                     crate::println!("io");
                 }
