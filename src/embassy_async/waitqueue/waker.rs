@@ -64,6 +64,10 @@ impl AtomicWaker {
         }
     }
 
+    pub fn destroy(&self) {
+        self.waker.store(ptr::null_mut(), Ordering::Relaxed);
+    }
+
     /// Register a waker. Overwrites the previous waker, if any.
     pub fn register(&self, w: &Waker) {
         let w = unsafe { task_from_waker(w) };
