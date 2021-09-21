@@ -218,20 +218,10 @@ impl Executor {
     ///
     /// See [`Executor`] docs for details on `signal_fn`.
     pub fn new(signal_fn: fn(*mut ()), signal_ctx: *mut ()) -> Self {
-        #[cfg(feature = "time")]
-            let alarm = unsafe { unwrap!(driver::allocate_alarm()) };
-        #[cfg(feature = "time")]
-            driver::set_alarm_callback(alarm, signal_fn, signal_ctx);
-
         Self {
             run_queue: RunQueue::new(),
             signal_fn,
             signal_ctx,
-
-            #[cfg(feature = "time")]
-            timer_queue: timer_queue::TimerQueue::new(),
-            #[cfg(feature = "time")]
-            alarm,
         }
     }
 
@@ -280,17 +270,8 @@ impl Executor {
     /// somehow schedule for `poll()` to be called later, at a time you know for sure there's
     /// no `poll()` already running.
     pub unsafe fn poll(&'static self) {
-        #[cfg(feature = "time")]
-            self.timer_queue.dequeue_expired(Instant::now(), |p| {
-            p.as_ref().enqueue();
-        });
-
         self.run_queue.dequeue_all(|p| {
             let task = p.as_ref();
-
-            #[cfg(feature = "time")]
-                task.expires_at.set(Instant::MAX);
-
             let state = task.state.fetch_and(!STATE_RUN_QUEUED, Ordering::AcqRel);
             if state & STATE_SPAWNED == 0 {
                 // If task is not running, ignore it. This can happen in the following scenario:
