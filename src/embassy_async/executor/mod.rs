@@ -5,7 +5,7 @@ mod spawner;
 use core::marker::PhantomData;
 
 use crate::base::CVoid;
-use crate::embassy_async::executor::raw::{task_from_waker, wake_task};
+pub use crate::embassy_async::executor::raw::{task_from_waker, wake_task};
 use crate::raw_api::{rt_thread_resume, rt_thread_self, rt_thread_suspend};
 use core::task::Waker;
 pub use spawner::*;
