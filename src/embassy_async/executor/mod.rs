@@ -69,7 +69,9 @@ impl Executor {
                 crate::println!("xxx");
                 let ok = rt_thread_suspend(self.thread as _);
                 if ok != 0 {
-                    panic!()
+                    crate::println!("unsp");
+                } else {
+                    crate::println!("io");
                 }
             };
         }
